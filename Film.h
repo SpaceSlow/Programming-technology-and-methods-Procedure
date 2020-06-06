@@ -17,6 +17,7 @@ struct Film {
     Film() = default;
 
     string title;
+    string country;
     typeFilm type_film;
 
     struct FictionFilm {

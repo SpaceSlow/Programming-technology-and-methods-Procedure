@@ -29,6 +29,7 @@ void read_film_from_file(Film *film, ifstream *fin) {
     string tmp, type_film;
     getline(*fin, tmp);              // Пропуск пустой строки
     getline(*fin, type_film);         // Тип фильма
+    getline(*fin, film->country);   // Страна, в которой выпустили фильм фильма
     getline(*fin, film->title);            // Название фильма
 
     if (type_film == "Fiction") {
@@ -67,6 +68,7 @@ void write_film_to_file(Film *film, ofstream *fout) {
     *fout << endl; // Пустая строка для читабельности
 
     *fout << "Type film: " << get_type_film(film) << endl;
+    *fout << "Country: " << film->country << endl;
     *fout << "Title: " << film->title << endl;
 
     switch (film->type_film) {
