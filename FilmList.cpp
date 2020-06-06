@@ -45,14 +45,20 @@ bool read_films_from_file(FilmList *film_list, string filename) {
     }
 
     int num_films;
-    string tmp, title, type_film, optional_field;
+    string tmp, filter_films;
     getline(fin, tmp);
     num_films = stoi(tmp);
+
+    getline(fin, filter_films);
 
     for (int i = 0; i < num_films; ++i) {
         Film *film = new Film();
         read_film_from_file(film, &fin);
-        add_film(film_list, film);
+
+        if (filter_films == "All" or filter_films == get_type_film(film)) {
+            add_film(film_list, film);
+        }
+
     }
     fin.close();
     return true;
