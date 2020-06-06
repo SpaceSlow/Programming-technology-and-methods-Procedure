@@ -44,16 +44,29 @@ bool read_films_from_file(FilmList *film_list, string filename) {
         return false;
     }
 
+    bool do_sort = false;
     int num_films;
-    string tmp, title, type_film, optional_field;
+    string tmp, sort_films;
     getline(fin, tmp);
     num_films = stoi(tmp);
+
+    getline(fin, sort_films);
+    if (sort_films == "Sort") {
+        do_sort = true;
+    } else if (sort_films != "No sort") {
+        return false;
+    }
 
     for (int i = 0; i < num_films; ++i) {
         Film *film = new Film();
         read_film_from_file(film, &fin);
         add_film(film_list, film);
     }
+
+    if (do_sort) {
+        sort_films_by_vowels_number(film_list);
+    }
+
     fin.close();
     return true;
 }
@@ -78,4 +91,14 @@ bool write_films_to_file(FilmList *film_list, string filename) {
 
     fout.close();
     return true;
+}
+
+void sort_films_by_vowels_number(FilmList *film_list) {
+    for(FilmItem* film_item2 = film_list->first_film; film_item2; film_item2 = film_item2->next_film) {
+        for(FilmItem* film_item1 = film_list->first_film; film_item1->next_film; film_item1 = film_item1->next_film) {
+            if(get_vowels_number_in_title(film_item1->film) > get_vowels_number_in_title(film_item1->next_film->film)) {
+                std::iter_swap(&film_item1->film, &film_item1->next_film->film);
+            }
+        }
+    }
 }
