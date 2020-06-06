@@ -13,7 +13,7 @@ using std::ofstream;
 
 
 struct Film {
-    enum typeFilm {FICTION, CARTOON};
+    enum typeFilm {FICTION, CARTOON, DOCUMENTARY};
     Film() = default;
 
     string title;
@@ -27,14 +27,20 @@ struct Film {
         enum typeCartoon {CLAY, HAND_DRAWN, COMPUTER, DOLL};
         typeCartoon type_cartoon;
     } cartoon_film;
+
+    struct DocumentaryFilm {
+        int year_of_release;
+    } documentary_film;
 };
 
 void read_film_from_file(Film *film, ifstream *fin);
 void read_film_from_file(Film::FictionFilm *fiction_film, ifstream *fin);
 void read_film_from_file(Film::CartoonFilm *cartoon_film, ifstream *fin);
+void read_film_from_file(Film::DocumentaryFilm *documentary_film, ifstream *fin);
 void write_film_to_file(Film *film, ofstream *fout);
 void write_film_to_file(Film::FictionFilm *fiction_film, ofstream *fout);
 void write_film_to_file(Film::CartoonFilm *cartoon_film, ofstream *fout);
+void write_film_to_file(Film::DocumentaryFilm *documentary_film, ofstream *fout);
 string get_type_cartoon(Film::CartoonFilm *cartoon_film);
 string get_type_film(Film *film);
 

@@ -37,6 +37,9 @@ void read_film_from_file(Film *film, ifstream *fin) {
     } else if (type_film == "Cartoon") {
         film->type_film = Film::CARTOON;
         read_film_from_file(&film->cartoon_film, fin);
+    } else if (type_film == "Documentary") {
+        film->type_film = Film::DOCUMENTARY;
+        read_film_from_file(&film->documentary_film, fin);
     }
 
 }
@@ -61,6 +64,12 @@ void read_film_from_file(Film::CartoonFilm *cartoon_film, ifstream *fin) {
     }
 }
 
+void read_film_from_file(Film::DocumentaryFilm *documentary_film, ifstream *fin) {
+    string year_of_release;
+    getline(*fin, year_of_release);
+    documentary_film->year_of_release = stoi(year_of_release);
+}
+
 void write_film_to_file(Film *film, ofstream *fout) {
     string type_film, optional_string;
 
@@ -76,6 +85,9 @@ void write_film_to_file(Film *film, ofstream *fout) {
         case Film::CARTOON:
             write_film_to_file(&film->cartoon_film, fout);
             break;
+        case Film::DOCUMENTARY:
+            write_film_to_file(&film->documentary_film, fout);
+            break;
     }
 
 }
@@ -88,12 +100,18 @@ void write_film_to_file(Film::CartoonFilm *cartoon_film, ofstream *fout) {
     *fout << "Type animation: " + get_type_cartoon(cartoon_film) << endl;
 }
 
+void write_film_to_file(Film::DocumentaryFilm *documentary_film, ofstream *fout) {
+    *fout << "Year of release: " << documentary_film->year_of_release << endl;
+}
+
 string get_type_film(Film *film) {
     switch (film->type_film) {
         case Film::FICTION:
             return "Fiction";
         case Film::CARTOON:
             return "Cartoon";
+        case Film::DOCUMENTARY:
+            return "Documentary";
         default:
             return "";
     }
