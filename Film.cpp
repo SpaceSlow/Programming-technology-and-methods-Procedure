@@ -98,3 +98,14 @@ string get_type_film(Film *film) {
             return "";
     }
 }
+
+int get_vowels_number_in_title(Film *film) {
+    string vowels = "aeiou";
+    int vowels_count = 0;
+    for (char symbol : film->title) {
+        if (vowels.find(symbol) != -1) {
+            vowels_count++;
+        }
+    }
+    return vowels_count;
+}
