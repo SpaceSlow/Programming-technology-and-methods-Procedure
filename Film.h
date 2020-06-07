@@ -17,6 +17,7 @@ struct Film {
     Film() = default;
 
     string title;
+    string country;
     typeFilm type_film;
 
     struct FictionFilm {
@@ -43,5 +44,6 @@ void write_film_to_file(Film::CartoonFilm *cartoon_film, ofstream *fout);
 void write_film_to_file(Film::DocumentaryFilm *documentary_film, ofstream *fout);
 string get_type_cartoon(Film::CartoonFilm *cartoon_film);
 string get_type_film(Film *film);
+int get_vowels_number_in_title(Film *film);
 
 #endif //FILM_H
