@@ -3,7 +3,7 @@
 **Note**: If you use ***Windows***, then add g++ in PATH.
 2) Compile.  
 Enter in command line or terminal this command in folder with this code:
-`g++ -o Film.[extension] main.cpp Film.cpp FilmList.cpp`  
+`g++ -o Film.[extension] main.cpp Film.cpp FilmList.cpp UnitTests.cpp`  
 **Note**: If you use ***Windows***, then change "[extension]" on "exe", if you use ***Linux***, then "out".
 3) Run.  
     ***Windows***: In command line write your command: `Film.exe [input file] [output file]`  

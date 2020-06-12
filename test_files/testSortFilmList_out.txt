@@ -1,0 +1,21 @@
+Number of films: 4
+
+Type film: Cartoon
+Country: USA, Germany
+Title: 9
+Type animation: Doll
+
+Type film: Cartoon
+Country: UK, USA, France
+Title: Chicken Run
+Type animation: Clay
+
+Type film: Fiction
+Country: USA
+Title: Pulp Fiction
+Directed by Quentin Tarantino
+
+Type film: Documentary
+Country: USA
+Title: The Story of Queen: Mercury Rising
+Year of release: 2011
