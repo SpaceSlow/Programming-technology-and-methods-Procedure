@@ -41,6 +41,8 @@ void read_film_from_file(Film *film, ifstream *fin) {
     } else if (type_film == "Documentary") {
         film->type_film = Film::DOCUMENTARY;
         read_film_from_file(&film->documentary_film, fin);
+    } else {
+        throw "The input file contains an incorrect film type. See README.";
     }
 
 }
@@ -62,13 +64,27 @@ void read_film_from_file(Film::CartoonFilm *cartoon_film, ifstream *fin) {
         cartoon_film->type_cartoon = Film::CartoonFilm::COMPUTER;
     } else if (type_cartoon == "Doll") {
         cartoon_film->type_cartoon = Film::CartoonFilm::DOLL;
+    } else {
+        throw "The input file contains an incorrect cartoon type. See README.";
     }
 }
 
 void read_film_from_file(Film::DocumentaryFilm *documentary_film, ifstream *fin) {
     string year_of_release;
     getline(*fin, year_of_release);
-    documentary_film->year_of_release = stoi(year_of_release);
+    int year = 0;
+    try {
+        year = stoi(year_of_release);
+        if (std::to_string(year) != year_of_release) {
+            throw std::invalid_argument("invalid argument");
+        }
+    } catch (const std::invalid_argument &msg) {
+        throw "The input file contains an incorrect year for the documentary.";
+    } catch (const std::out_of_range &msg) {
+        throw "The input file contains a very large year for the documentary.";
+    }
+
+    documentary_film->year_of_release = year;
 }
 
 void write_film_to_file(Film *film, ofstream *fout) {

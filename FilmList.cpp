@@ -36,25 +36,35 @@ void add_film(FilmList *film_list, Film *film) {
     film_list->size++;
 }
 
-bool read_films_from_file(FilmList *film_list, string filename) {
+void read_films_from_file(FilmList *film_list, string filename) {
 
     ifstream fin(filename);
 
     if (!fin.is_open()) {
-        return false;
+        throw "The input file was not opened. Check the file path and file permissions.";
     }
 
     bool do_sort = false;
     int num_films;
     string tmp, sort_films, filter_films;
     getline(fin, tmp);
-    num_films = stoi(tmp);
+
+    try {
+        num_films = stoi(tmp);
+        if (std::to_string(num_films) != tmp) {
+            throw std::invalid_argument("invalid argument");
+        }
+    } catch (const std::invalid_argument &msg) {
+        throw "The input file contains an invalid value for the number of films. Allowed type number of films is integer.";
+    } catch (const std::out_of_range &msg) {
+        throw "The input file contains a very large number of films.";
+    }
 
     getline(fin, sort_films);
     if (sort_films == "Sort") {
         do_sort = true;
     } else if (sort_films != "No sort") {
-        return false;
+        throw "The input file contains an invalid sorting value. See README.";
     }
 
     getline(fin, filter_films);
@@ -74,10 +84,9 @@ bool read_films_from_file(FilmList *film_list, string filename) {
     }
 
     fin.close();
-    return true;
 }
 
-bool write_films_to_file(FilmList *film_list, string filename) {
+void write_films_to_file(FilmList *film_list, string filename) {
 
     ofstream fout(filename);
 
@@ -85,7 +94,7 @@ bool write_films_to_file(FilmList *film_list, string filename) {
 
     if (!film_list->size) {
         fout.close();
-        return true;
+        return;
     }
 
     FilmItem *current_film_item = film_list->first_film; // инициализация текущего элемента списка
@@ -96,7 +105,6 @@ bool write_films_to_file(FilmList *film_list, string filename) {
     }
 
     fout.close();
-    return true;
 }
 
 void sort_films_by_vowels_number(FilmList *film_list) {

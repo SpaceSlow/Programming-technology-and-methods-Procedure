@@ -23,8 +23,8 @@ struct FilmList {
 
 FilmList* init_film_list();
 void add_film(FilmList *film_list, Film *film);
-bool read_films_from_file(FilmList *film_list, string filename);
-bool write_films_to_file(FilmList *film_list, string filename);
+void read_films_from_file(FilmList *film_list, string filename);
+void write_films_to_file(FilmList *film_list, string filename);
 void sort_films_by_vowels_number(FilmList *film_list);
 
 #endif //LAB1_PROCEDURE_FILMLIST_H
