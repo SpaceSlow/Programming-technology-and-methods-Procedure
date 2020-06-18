@@ -104,6 +104,8 @@ void write_films_to_file(FilmList *film_list, string filename) {
         current_film_item = current_film_item->next_film;
     }
 
+    multimethod(film_list, &fout);
+
     fout.close();
 }
 
@@ -112,6 +114,51 @@ void sort_films_by_vowels_number(FilmList *film_list) {
         for(FilmItem* film_item1 = film_list->first_film; film_item1->next_film; film_item1 = film_item1->next_film) {
             if(get_vowels_number_in_title(film_item1->film) > get_vowels_number_in_title(film_item1->next_film->film)) {
                 std::iter_swap(&film_item1->film, &film_item1->next_film->film);
+            }
+        }
+    }
+}
+
+void multimethod(FilmList *film_list, ofstream *fout) {
+    *fout << endl << endl << "Multimethod" << endl;
+    if (!film_list->size) {
+        return;
+    }
+
+    for(FilmItem* film_item1 = film_list->first_film; film_item1->next_film; film_item1 = film_item1->next_film) {
+        for(FilmItem* film_item2 = film_item1->next_film; film_item2; film_item2 = film_item2->next_film) {
+            switch (film_item1->film->type_film)
+            {
+                case Film::typeFilm::FICTION:
+                    switch (film_item2->film->type_film) {
+                        case Film::typeFilm::FICTION:
+                            *fout << "FICTION and FICTION" << endl;
+                            break;
+                        case Film::typeFilm::CARTOON:
+                            *fout << "FICTION and CARTOON" << endl;
+                            break;
+                        default:
+                            *fout << "FICTION and unknown type of film" << endl;
+                            break;
+                    }
+                    break;
+
+                case Film::typeFilm::CARTOON:
+                    switch (film_item2->film->type_film) {
+                        case Film::typeFilm::FICTION:
+                            *fout << "CARTOON and FICTION" << endl;
+                            break;
+                        case Film::typeFilm::CARTOON:
+                            *fout << "CARTOON and CARTOON" << endl;
+                            break;
+                        default:
+                            *fout << "CARTOON and unknown type of film" << endl;
+                            break;
+                    }
+                    break;
+                default:
+                    *fout << "Unknown type of film" << endl;
+                    break;
             }
         }
     }

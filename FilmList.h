@@ -26,5 +26,6 @@ void add_film(FilmList *film_list, Film *film);
 void read_films_from_file(FilmList *film_list, string filename);
 void write_films_to_file(FilmList *film_list, string filename);
 void sort_films_by_vowels_number(FilmList *film_list);
+void multimethod(FilmList *film_list, ofstream *fout);
 
 #endif //LAB1_PROCEDURE_FILMLIST_H
