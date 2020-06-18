@@ -137,6 +137,9 @@ void multimethod(FilmList *film_list, ofstream *fout) {
                         case Film::typeFilm::CARTOON:
                             *fout << "FICTION and CARTOON" << endl;
                             break;
+                        case Film::typeFilm::DOCUMENTARY:
+                            *fout << "FICTION and DOCUMENTARY" << endl;
+                            break;
                         default:
                             *fout << "FICTION and unknown type of film" << endl;
                             break;
@@ -151,11 +154,32 @@ void multimethod(FilmList *film_list, ofstream *fout) {
                         case Film::typeFilm::CARTOON:
                             *fout << "CARTOON and CARTOON" << endl;
                             break;
+                        case Film::typeFilm::DOCUMENTARY:
+                            *fout << "CARTOON and DOCUMENTARY" << endl;
+                            break;
                         default:
                             *fout << "CARTOON and unknown type of film" << endl;
                             break;
                     }
                     break;
+
+                case Film::typeFilm::DOCUMENTARY:
+                    switch (film_item2->film->type_film) {
+                        case Film::typeFilm::FICTION:
+                            *fout << "DOCUMENTARY and FICTION" << endl;
+                            break;
+                        case Film::typeFilm::CARTOON:
+                            *fout << "DOCUMENTARY and CARTOON" << endl;
+                            break;
+                        case Film::typeFilm::DOCUMENTARY:
+                            *fout << "DOCUMENTARY and DOCUMENTARY" << endl;
+                            break;
+                        default:
+                            *fout << "DOCUMENTARY and unknown type of film" << endl;
+                            break;
+                    }
+                    break;
+
                 default:
                     *fout << "Unknown type of film" << endl;
                     break;
